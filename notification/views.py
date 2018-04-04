@@ -75,3 +75,27 @@ class UserList(generics.ListAPIView):
 class UserDetail(generics.RetrieveAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
+
+from rest_framework.decorators import api_view
+from rest_framework import status
+from rest_framework.response import Response
+@api_view(['POST'])
+def create_auth(request):
+    serialized = UserSerializer(data=request.data)
+    email=request.data['email']
+
+    if serialized.is_valid():
+
+        User.objects.create_user(
+            request.data['username'],
+            request.data['email'],
+            request.data['password']
+        )
+        # User.objects.create_user(
+        #     serialized.init_data['email'],
+        #     serialized.init_data['username'],
+        #     serialized.init_data['password']
+        # )
+        return Response(serialized.data, status=status.HTTP_201_CREATED)
+    else:
+        return Response(serialized._errors, status=status.HTTP_400_BAD_REQUEST)

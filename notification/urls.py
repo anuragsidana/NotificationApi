@@ -2,7 +2,7 @@ from django.conf.urls import url
 from django.urls import path
 
 from .views import AppointmentListView, AppointmentCreateView, AppointmentDetailView, AppointmentUpdateView, AppointmentDeleteView
-from .views import AppointmentList,AppointmentDetail,UserDetail,UserList
+from .views import AppointmentList,AppointmentDetail,UserDetail,UserList,create_auth
 
 urlpatterns = [
     # List and detail views
@@ -17,4 +17,6 @@ urlpatterns = [
     url(r'^notification/(?P<pk>[0-9]+)/$', AppointmentDetail.as_view()),
 path('users/', UserList.as_view()),
 url(r'^users/(?P<pk>[0-9]+)/$',UserDetail.as_view()),
+
+path('users/register',create_auth),
 ]

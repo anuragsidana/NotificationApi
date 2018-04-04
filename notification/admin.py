@@ -1,5 +1,5 @@
 from django.contrib import admin
-
+from  django.contrib.auth.models import User
 
 from .models import Appointment
 class AppointmentModelAdmin(admin.ModelAdmin):
@@ -11,5 +11,9 @@ class AppointmentModelAdmin(admin.ModelAdmin):
     class Meta:
         model = Appointment
 
-
+class UserModelAdmin(admin.ModelAdmin):
+    list_display = ['username','email','pk']
+    class Meta:
+        model=User
 admin.site.register(Appointment, AppointmentModelAdmin)
+# admin.site.register(User,UserModelAdmin)
